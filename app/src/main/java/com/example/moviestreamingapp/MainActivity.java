@@ -5,7 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -14,7 +18,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieItemClickListener {
 
     private List<Slide> listSlides;
     private ViewPager sliderpager;
@@ -26,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
         movieViewFlipper();
+        movieHorizontalList();
+
+    }
+
+    private void movieHorizontalList() {
         List<Movie> movieList=new ArrayList<>();
         movieList.add(new Movie("Joker",R.drawable.image1));
         movieList.add(new Movie("Agent",R.drawable.image2));
@@ -34,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
         movieList.add(new Movie("Bloodshot",R.drawable.image5));
         movieList.add(new Movie("John Wick 3",R.drawable.image6));
 
-        MovieAdapter movieAdapter=new MovieAdapter(this,movieList);
+        MovieAdapter movieAdapter=new MovieAdapter(this,movieList,this);
         movieHori.setAdapter(movieAdapter);
         movieHori.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
     }
 
     private void movieViewFlipper() {
@@ -58,6 +66,21 @@ public class MainActivity extends AppCompatActivity {
         sliderpager=findViewById(R.id.slider_pager);
         indicator=findViewById(R.id.indicator);
         movieHori=findViewById(R.id.Rx_movies);
+    }
+
+    @Override
+    public void onMovieClick(Movie movie, ImageView movieImageView) {
+        //here we send movie information to details activity
+        //also we'll create the transition animation between two activity
+
+        Intent intent =new Intent(this,DetailsActivity.class);
+        //send movie into yo DetailsActivity
+        intent.putExtra("title",movie.getTitle());
+        intent.putExtra("imgUrl",movie.getThumbnail());
+        //adding animation
+        ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(
+                MainActivity.this,movieImageView,"sharedName");
+        startActivity(intent,options.toBundle());
     }
 
 

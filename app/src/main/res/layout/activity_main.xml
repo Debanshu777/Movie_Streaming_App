@@ -18,11 +18,12 @@
     <com.google.android.material.tabs.TabLayout
         app:tabGravity="center"
         android:id="@+id/indicator"
+        android:padding="0dp"
         app:tabBackground="@drawable/indictor_selector"
         app:tabIndicatorHeight="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/Rx_movies"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slider_pager">
@@ -34,7 +35,6 @@
         android:id="@+id/Rx_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/indicator" />
