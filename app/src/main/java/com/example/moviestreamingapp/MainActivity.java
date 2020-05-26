@@ -9,8 +9,12 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.moviestreamingapp.models.Movie;
+import com.example.moviestreamingapp.adapters.MovieAdapter;
+import com.example.moviestreamingapp.models.MovieItemClickListener;
+import com.example.moviestreamingapp.models.Slide;
+import com.example.moviestreamingapp.adapters.SlidePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -36,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
 
     private void movieHorizontalList() {
         List<Movie> movieList=new ArrayList<>();
-        movieList.add(new Movie("Joker",R.drawable.image1));
-        movieList.add(new Movie("Agent",R.drawable.image2));
+        movieList.add(new Movie("Joker",R.drawable.image1,R.drawable.inter));
+        movieList.add(new Movie("Agent",R.drawable.image2,R.drawable.inter));
         movieList.add(new Movie("Greta",R.drawable.image3));
         movieList.add(new Movie("Holywood",R.drawable.image4));
         movieList.add(new Movie("Bloodshot",R.drawable.image5));
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         //send movie into yo DetailsActivity
         intent.putExtra("title",movie.getTitle());
         intent.putExtra("imgUrl",movie.getThumbnail());
+        intent.putExtra("imgCover",movie.getCoverPhoto());
         //adding animation
         ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(
                 MainActivity.this,movieImageView,"sharedName");

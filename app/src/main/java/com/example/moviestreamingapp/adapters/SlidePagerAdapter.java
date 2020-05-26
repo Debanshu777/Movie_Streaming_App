@@ -1,4 +1,4 @@
-package com.example.moviestreamingapp;
+package com.example.moviestreamingapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.moviestreamingapp.R;
+import com.example.moviestreamingapp.models.Slide;
 
 import java.util.List;
 

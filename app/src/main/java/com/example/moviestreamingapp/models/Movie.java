@@ -1,4 +1,4 @@
-package com.example.moviestreamingapp;
+package com.example.moviestreamingapp.models;
 
 public class Movie {
     private String title;
@@ -7,6 +7,13 @@ public class Movie {
     private String studio;
     private String rating;
     private String streamingLink;
+    private int coverPhoto;
+
+    public Movie(String title, int thumbnail, int coverPhoto) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.coverPhoto = coverPhoto;
+    }
 
     public Movie(String title, int thumbnail) {
         this.title = title;
@@ -28,6 +35,10 @@ public class Movie {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getCoverPhoto() {
+        return coverPhoto;
     }
 
     public int getThumbnail() {
@@ -64,6 +75,10 @@ public class Movie {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public void setCoverPhoto(int coverPhoto) {
+        this.coverPhoto = coverPhoto;
     }
 
     public void setStreamingLink(String streamingLink) {

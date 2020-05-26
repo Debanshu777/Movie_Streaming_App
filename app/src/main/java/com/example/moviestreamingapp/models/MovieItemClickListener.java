@@ -1,4 +1,4 @@
-package com.example.moviestreamingapp;
+package com.example.moviestreamingapp.models;
 
 import android.widget.ImageView;
 
