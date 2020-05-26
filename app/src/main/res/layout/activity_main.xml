@@ -10,9 +10,23 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slider_pager"
         android:layout_width="0dp"
-        android:layout_height="275dp"
+        android:layout_height="325dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        app:tabGravity="center"
+        android:id="@+id/indicator"
+        app:tabBackground="@drawable/indictor_selector"
+        app:tabIndicatorHeight="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slider_pager">
+
+    </com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
