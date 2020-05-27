@@ -14,11 +14,14 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/play_fab"
-        android:layout_gravity="center"
+        app:fabCustomSize="80dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:maxImageSize="61dp"
+        app:maxImageSize="87dp"
         app:srcCompat="@drawable/ic_play" />
 
     <ImageView

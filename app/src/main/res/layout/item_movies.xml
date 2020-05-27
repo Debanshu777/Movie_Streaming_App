@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:padding="3dp"
+    android:layout_marginRight="20dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="@dimen/cardview_default_elevation">
 
