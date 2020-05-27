@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         movieList.add(new Movie("Joker",R.drawable.image1,R.drawable.inter));
         movieList.add(new Movie("Agent",R.drawable.image2,R.drawable.inter));
         movieList.add(new Movie("Greta",R.drawable.image3));
-        movieList.add(new Movie("Holywood",R.drawable.image4));
+        movieList.add(new Movie("Hollywood",R.drawable.image4));
         movieList.add(new Movie("Bloodshot",R.drawable.image5));
         movieList.add(new Movie("John Wick 3",R.drawable.image6));
 

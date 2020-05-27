@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".DetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -48,7 +47,7 @@
             android:id="@+id/detail_movie_img"
             android:layout_width="125dp"
             android:layout_height="175dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
             android:transitionName="sharedName"
             app:layout_constraintBottom_toBottomOf="@id/detail_movie_cover"
@@ -57,7 +56,6 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:textColor="@android:color/white"
             android:id="@+id/details_movie_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -65,6 +63,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="TextView"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
@@ -72,16 +71,44 @@
         <TextView
             android:id="@+id/detail_movie_description"
             android:layout_width="0dp"
-            android:lineSpacingExtra="8dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/text_bg_blue"
+            android:lineSpacingExtra="8dp"
             android:text="@string/sample_text"
-            android:textColor="#A39F9F"
+            android:textColor="@color/text_light_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_img" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/text_bg_blue"
+            android:padding="16dp"
+            android:text="Cast"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_description"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movie_cast_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
