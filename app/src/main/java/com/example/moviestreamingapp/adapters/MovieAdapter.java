@@ -48,16 +48,31 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView title;
-        private ImageView imgMovie;
+        private ImageView imgMovie,favourite_btn;
+        int i=1;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.item_movie_title);
             imgMovie=itemView.findViewById(R.id.item_movie_img);
+            favourite_btn=itemView.findViewById(R.id.favourite);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     movieItemClickListener.onMovieClick(mData.get(getAdapterPosition()),imgMovie);
+                }
+            });
+            favourite_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(i!=0){
+                        i=0;
+                        favourite_btn.setImageResource(R.drawable.ic_favourite_selected);
+                    }
+                    else{
+                        i=1;
+                        favourite_btn.setImageResource(R.drawable.ic_favourite_unselected);
+                    }
                 }
             });
         }

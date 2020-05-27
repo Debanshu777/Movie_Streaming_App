@@ -15,6 +15,7 @@ import com.example.moviestreamingapp.adapters.MovieAdapter;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
 import com.example.moviestreamingapp.models.Slide;
 import com.example.moviestreamingapp.adapters.SlidePagerAdapter;
+import com.example.moviestreamingapp.utils.DataSource;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -27,29 +28,29 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     private List<Slide> listSlides;
     private ViewPager sliderpager;
     private TabLayout indicator;
-    private RecyclerView movieHori;
+    private RecyclerView movieHoriTrend,movieHoriPop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
         movieViewFlipper();
-        movieHorizontalList();
+        movieHorizontalListPopular();
+        movieHorizontalListTrending();
 
     }
 
-    private void movieHorizontalList() {
-        List<Movie> movieList=new ArrayList<>();
-        movieList.add(new Movie("Joker",R.drawable.image1,R.drawable.inter));
-        movieList.add(new Movie("Agent",R.drawable.image2,R.drawable.inter));
-        movieList.add(new Movie("Greta",R.drawable.image3));
-        movieList.add(new Movie("Hollywood",R.drawable.image4));
-        movieList.add(new Movie("Bloodshot",R.drawable.image5));
-        movieList.add(new Movie("John Wick 3",R.drawable.image6));
+    private void movieHorizontalListPopular() {
+        MovieAdapter movieAdapter=new MovieAdapter(this, DataSource.getPopularMovies(),this);
+        movieHoriPop.setAdapter(movieAdapter);
+        movieHoriPop.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+    }
 
-        MovieAdapter movieAdapter=new MovieAdapter(this,movieList,this);
-        movieHori.setAdapter(movieAdapter);
-        movieHori.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+    private void movieHorizontalListTrending() {
+
+        MovieAdapter movieAdapter=new MovieAdapter(this, DataSource.getTrendingMovies(),this);
+        movieHoriTrend.setAdapter(movieAdapter);
+        movieHoriTrend.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
     }
 
     private void movieViewFlipper() {
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     private void init() {
         sliderpager=findViewById(R.id.slider_pager);
         indicator=findViewById(R.id.indicator);
-        movieHori=findViewById(R.id.Rx_movies);
+        movieHoriTrend=findViewById(R.id.Rx_movies);
+        movieHoriPop=findViewById(R.id.Rx_movies_popular);
     }
 
     @Override
