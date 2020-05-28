@@ -34,10 +34,54 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/trendz_layout"
+            android:id="@+id/preview_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/flip">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="preview"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Preview"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView4"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:padding="5dp" />
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/trendz_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/preview_layout">
 
             <TextView
                 android:layout_width="match_parent"
@@ -93,6 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/trendz_layout">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,8 +150,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="23dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,7 +181,7 @@
                     android:layout_below="@+id/textView3"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
-                    android:padding="5dp"/>
+                    android:padding="5dp" />
             </RelativeLayout>
         </FrameLayout>
 

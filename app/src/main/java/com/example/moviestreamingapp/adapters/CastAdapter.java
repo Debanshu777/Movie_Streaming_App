@@ -15,6 +15,8 @@ import com.example.moviestreamingapp.models.Cast;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder> {
 
     Context context;
@@ -43,7 +45,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
     }
 
     public class CastViewHolder extends RecyclerView.ViewHolder{
-        ImageView cast_img;
+        CircleImageView cast_img;
 
         public CastViewHolder(@NonNull View itemView) {
             super(itemView);

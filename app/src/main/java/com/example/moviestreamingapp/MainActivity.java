@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.example.moviestreamingapp.adapters.CastAdapter;
+import com.example.moviestreamingapp.adapters.PreviewAdapter;
+import com.example.moviestreamingapp.models.Cast;
 import com.example.moviestreamingapp.models.Movie;
 import com.example.moviestreamingapp.adapters.MovieAdapter;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     private List<Slide> listSlides;
     private ViewPager sliderpager;
     private TabLayout indicator;
-    private RecyclerView movieHoriTrend,movieHoriPop;
+    private RecyclerView movieHoriTrend,movieHoriPop,previews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,19 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         movieViewFlipper();
         movieHorizontalListPopular();
         movieHorizontalListTrending();
+        preview_list();
 
+    }
+
+    private void preview_list() {List<Cast> castlist=new ArrayList<>();
+        castlist.add(new Cast("name1",R.drawable.image3));
+        castlist.add(new Cast("name2",R.drawable.image4));
+        castlist.add(new Cast("name3",R.drawable.slider1));
+        castlist.add(new Cast("name4",R.drawable.slider2));
+        castlist.add(new Cast("name5",R.drawable.image5));
+        PreviewAdapter previewAdapter=new PreviewAdapter(this,castlist);
+        previews.setAdapter(previewAdapter);
+        previews.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
     }
 
     private void movieHorizontalListPopular() {
@@ -68,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void init() {
+        previews=findViewById(R.id.preview);
         sliderpager=findViewById(R.id.slider_pager);
         indicator=findViewById(R.id.indicator);
         movieHoriTrend=findViewById(R.id.Rx_movies);

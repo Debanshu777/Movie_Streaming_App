@@ -44,4 +44,7 @@ dependencies {
 
     //exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
+
+    //circular imageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
