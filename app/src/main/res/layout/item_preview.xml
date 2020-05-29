@@ -8,6 +8,7 @@
     app:civ_border_overlay="true"
     android:layout_height="110dp"
     android:padding="3dp"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
     android:layout_marginRight="10dp"
     android:scaleType="centerCrop"
     android:src="@drawable/ic_launcher_background" />

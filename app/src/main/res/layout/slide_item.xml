@@ -39,14 +39,28 @@
     <TextView
         android:id="@+id/slide_title"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="30dp"
-        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="45dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:text="Text View"
         android:textColor="#ffffff"
-        android:textSize="17sp" />
+        android:textSize="27sp" />
+    <TextView
+        android:id="@+id/slide_tags"
+        android:layout_gravity="bottom"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Sifi - Fantasy - Drama"
+        android:textColor="#ffffff"
+        android:textSize="13sp" />
+
 
 
 </FrameLayout>

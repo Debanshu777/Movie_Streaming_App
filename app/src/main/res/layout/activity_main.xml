@@ -45,7 +45,7 @@
                 android:layout_marginTop="13dp"
                 android:alpha="0.2"
                 android:fontFamily="sans-serif-black"
-                android:text="preview"
+                android:text="previews"
                 android:textColor="@color/colorAccent"
                 android:textSize="75dp" />
 
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Preview"
+                    android:text="Previews"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 
@@ -78,10 +78,54 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/trendz_layout"
+            android:id="@+id/upcomming_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/preview_layout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="upcoming"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Upcoming"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/upcoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView5"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:padding="5dp" />
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/trendz_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/upcomming_layout">
 
             <TextView
                 android:layout_width="match_parent"
