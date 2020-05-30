@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviestreamingapp.R;
-import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastOld;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewViewHolder> {
 
     Context context;
-    List<Cast> mData;
+    List<CastOld> mData;
 
-    public PreviewAdapter(Context context, List<Cast> mData) {
+    public PreviewAdapter(Context context, List<CastOld> mData) {
         this.context = context;
         this.mData = mData;
     }

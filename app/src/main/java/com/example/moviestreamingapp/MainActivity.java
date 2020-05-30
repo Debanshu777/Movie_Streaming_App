@@ -10,11 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.example.moviestreamingapp.adapters.CastAdapter;
 import com.example.moviestreamingapp.adapters.PreviewAdapter;
 import com.example.moviestreamingapp.adapters.UpcomingAdapter;
-import com.example.moviestreamingapp.models.Cast;
-import com.example.moviestreamingapp.models.Movie;
+import com.example.moviestreamingapp.models.CastOld;
+import com.example.moviestreamingapp.models.MovieOld;
 import com.example.moviestreamingapp.adapters.MovieAdapter;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
 import com.example.moviestreamingapp.models.Slide;
@@ -47,24 +46,24 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void upcoming_list() {
-        List<Cast> upcominglist=new ArrayList<>();
-        upcominglist.add(new Cast("name1",R.drawable.image3));
-        upcominglist.add(new Cast("name2",R.drawable.image4));
-        upcominglist.add(new Cast("name3",R.drawable.slider1));
-        upcominglist.add(new Cast("name4",R.drawable.slider2));
-        upcominglist.add(new Cast("name5",R.drawable.image5));
+        List<CastOld> upcominglist=new ArrayList<>();
+        upcominglist.add(new CastOld("name1",R.drawable.image3));
+        upcominglist.add(new CastOld("name2",R.drawable.image4));
+        upcominglist.add(new CastOld("name3",R.drawable.slider1));
+        upcominglist.add(new CastOld("name4",R.drawable.slider2));
+        upcominglist.add(new CastOld("name5",R.drawable.image5));
         UpcomingAdapter upcomingAdapter=new UpcomingAdapter(this,upcominglist);
         upcomings.setAdapter(upcomingAdapter);
         upcomings.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
     }
 
     private void preview_list() {
-        List<Cast> castlist=new ArrayList<>();
-        castlist.add(new Cast("name1",R.drawable.image3));
-        castlist.add(new Cast("name2",R.drawable.image4));
-        castlist.add(new Cast("name3",R.drawable.slider1));
-        castlist.add(new Cast("name4",R.drawable.slider2));
-        castlist.add(new Cast("name5",R.drawable.image5));
+        List<CastOld> castlist=new ArrayList<>();
+        castlist.add(new CastOld("name1",R.drawable.image3));
+        castlist.add(new CastOld("name2",R.drawable.image4));
+        castlist.add(new CastOld("name3",R.drawable.slider1));
+        castlist.add(new CastOld("name4",R.drawable.slider2));
+        castlist.add(new CastOld("name5",R.drawable.image5));
         PreviewAdapter previewAdapter=new PreviewAdapter(this,castlist);
         previews.setAdapter(previewAdapter);
         previews.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     @Override
-    public void onMovieClick(Movie movie, ImageView movieImageView) {
+    public void onMovieClick(MovieOld movie, ImageView movieImageView) {
         //here we send movie information to details activity
         //also we'll create the transition animation between two activity
 

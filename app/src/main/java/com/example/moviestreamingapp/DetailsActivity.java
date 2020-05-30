@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviestreamingapp.adapters.CastAdapter;
-import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastOld;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -37,11 +37,11 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void setUpCastList() {
-        List<Cast> castlist=new ArrayList<>();
-        castlist.add(new Cast("name1",R.drawable.cast1));
-        castlist.add(new Cast("name2",R.drawable.cast2));
-        castlist.add(new Cast("name3",R.drawable.cast3));
-        castlist.add(new Cast("name4",R.drawable.cast4));
+        List<CastOld> castlist=new ArrayList<>();
+        castlist.add(new CastOld("name1",R.drawable.cast1));
+        castlist.add(new CastOld("name2",R.drawable.cast2));
+        castlist.add(new CastOld("name3",R.drawable.cast3));
+        castlist.add(new CastOld("name4",R.drawable.cast4));
         castAdapter=new CastAdapter(this,castlist);
         movie_cast.setAdapter(castAdapter);
         movie_cast.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));

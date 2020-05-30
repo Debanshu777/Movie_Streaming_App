@@ -4,14 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviestreamingapp.R;
-import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastOld;
 
 import java.util.List;
 
@@ -20,9 +19,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder> {
 
     Context context;
-    List<Cast> mData;
+    List<CastOld> mData;
 
-    public CastAdapter(Context context, List<Cast> mData) {
+    public CastAdapter(Context context, List<CastOld> mData) {
         this.context = context;
         this.mData = mData;
     }

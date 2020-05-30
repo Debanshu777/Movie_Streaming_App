@@ -11,18 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviestreamingapp.R;
-import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastOld;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.UpcomingViewHolder> {
 
     Context context;
-    List<Cast> mData;
+    List<CastOld> mData;
 
-    public UpcomingAdapter(Context context, List<Cast> mData) {
+    public UpcomingAdapter(Context context, List<CastOld> mData) {
         this.context = context;
         this.mData = mData;
     }

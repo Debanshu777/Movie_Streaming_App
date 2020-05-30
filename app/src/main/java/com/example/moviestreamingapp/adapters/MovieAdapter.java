@@ -11,17 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviestreamingapp.R;
-import com.example.moviestreamingapp.models.Movie;
+import com.example.moviestreamingapp.models.MovieOld;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
     Context context;
-    List<Movie> mData;
+    List<MovieOld> mData;
     MovieItemClickListener movieItemClickListener;
 
-    public MovieAdapter(Context context, List<Movie> mData,MovieItemClickListener movieItemClickListener) {
+    public MovieAdapter(Context context, List<MovieOld> mData, MovieItemClickListener movieItemClickListener) {
         this.context = context;
         this.mData = mData;
         this.movieItemClickListener=movieItemClickListener;
