@@ -1,24 +1,58 @@
 package com.example.moviestreamingapp.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
-class Movie {
+public class Movie {
+    @SerializedName("vote_count")
+    @Expose
     private long vote_count;
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("video")
+    @Expose
     private boolean video;
+    @SerializedName("vote_average")
+    @Expose
     private float vote_average;
+    @SerializedName("title")
+    @Expose
     private String title;
+    @SerializedName("poster_path")
+    @Expose
     private String poster_path;
+    @SerializedName("original_language")
+    @Expose
     private String original_language;
+    @SerializedName("original_title")
+    @Expose
     private String original_title;
+    @SerializedName("genre_ids")
+    @Expose
     private List<Integer> genre_ids;
+    @SerializedName("backdrop_path")
+    @Expose
     private String backdrop_path;
+    @SerializedName("adult")
+    @Expose
     private boolean adult;
+    @SerializedName("overview")
+    @Expose
     private String overview;
+    @SerializedName("release_date")
+    @Expose
     private String release_date;
 
     public Movie(){
 
+    }
+
+    public Movie(String poster_path, String original_title) {
+        this.poster_path = poster_path;
+        this.original_title = original_title;
     }
 
     public Movie(long vote_count, int id, boolean video, float vote_average, String title, String poster_path, String original_language, String original_title, List<Integer> genre_ids, String backdrop_path, boolean adult, String overview, String release_date) {

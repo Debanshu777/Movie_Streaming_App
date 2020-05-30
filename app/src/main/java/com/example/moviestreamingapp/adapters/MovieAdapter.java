@@ -10,7 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviestreamingapp.R;
+import com.example.moviestreamingapp.models.Movie;
 import com.example.moviestreamingapp.models.MovieOld;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
 
@@ -18,15 +21,15 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
     Context context;
-    List<MovieOld> mData;
+    List<Movie> mData;
     MovieItemClickListener movieItemClickListener;
 
-    public MovieAdapter(Context context, List<MovieOld> mData, MovieItemClickListener movieItemClickListener) {
+    public MovieAdapter(Context context, List<Movie> mData) {
         this.context = context;
         this.mData = mData;
         this.movieItemClickListener=movieItemClickListener;
     }
-
+//, MovieItemClickListener movieItemClickListener
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,9 +39,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Movie model=mData.get(position);
 
         holder.title.setText(mData.get(position).getTitle());
-        holder.imgMovie.setImageResource(mData.get(position).getThumbnail());
+        Glide.with(context).load("https://image.tmdb.org/t/p/w500"+model.getPoster_path()).transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.imgMovie);
     }
 
     @Override
@@ -59,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    movieItemClickListener.onMovieClick(mData.get(getAdapterPosition()),imgMovie);
+                    //movieItemClickListener.onMovieClick(mData.get(getAdapterPosition()),imgMovie);
                 }
             });
             favourite_btn.setOnClickListener(new View.OnClickListener() {
