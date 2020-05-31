@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="150dp"
-    android:layout_height="wrap_content"
+    android:layout_height="270dp"
     android:layout_margin="3dp"
+    android:layout_marginRight="20dp"
     android:background="@color/colorPrimary"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:layout_marginRight="20dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="@dimen/cardview_default_elevation">
+    app:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,29 +34,37 @@
             android:layout_marginRight="5dp"
             android:src="@drawable/ic_favourite_unselected" />
 
-        <TextView
-            android:id="@+id/item_movie_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_movie_img"
-            android:layout_alignParentLeft="true"
-            android:padding="3dp"
-            android:text="TextView"
-            android:textColor="#fff"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/movie_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_movie_img"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="2dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="1"
+            android:gravity="center"
             android:padding="4dp"
-            android:text="2019"
-            android:textColor="#fff"
-            android:textSize="14dp" />
+            android:layout_height="50dp"
+            android:layout_below="@id/item_movie_img"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_weight="0.7"
+                android:id="@+id/item_movie_title"
+                android:layout_width="110dp"
+                android:gravity="center|left"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/movie_date"
+                android:layout_weight="0.3"
+                android:layout_width="18dp"
+                android:layout_gravity="top"
+                android:textAlignment="textEnd"
+                android:layout_height="wrap_content"
+                android:text="2019"
+                android:textColor="#fff"
+                android:textSize="10dp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="30dp"

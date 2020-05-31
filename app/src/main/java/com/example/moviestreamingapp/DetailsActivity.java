@@ -57,12 +57,12 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         String movieTitle=getIntent().getExtras().getString("title");
-        int imageResourceId=getIntent().getExtras().getInt("imgUrl");
-        int imageCover=getIntent().getExtras().getInt("imgCover");
+        String imageResourceId=getIntent().getExtras().getString("imgUrl");
+        String imageCover=getIntent().getExtras().getString("imgCover");
 
-        Glide.with(this).load(imageResourceId).into(movieThumbnailImg);
-        movieThumbnailImg.setImageResource(imageResourceId);
-        Glide.with(this).load(imageCover).into(movieCoverImg);
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500"+imageResourceId).into(movieThumbnailImg);
+        //movieThumbnailImg.setImageResource(imageResourceId);
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500"+imageCover).into(movieCoverImg);
         movie_title.setText(movieTitle);
 
 

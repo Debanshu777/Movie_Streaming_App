@@ -17,13 +17,11 @@ import com.example.moviestreamingapp.adapters.PreviewAdapter;
 import com.example.moviestreamingapp.adapters.UpcomingAdapter;
 import com.example.moviestreamingapp.models.CastOld;
 import com.example.moviestreamingapp.models.Movie;
-import com.example.moviestreamingapp.models.MovieOld;
 import com.example.moviestreamingapp.adapters.MovieAdapter;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
 import com.example.moviestreamingapp.models.MovieResponse;
 import com.example.moviestreamingapp.models.Slide;
 import com.example.moviestreamingapp.adapters.SlidePagerAdapter;
-import com.example.moviestreamingapp.utils.DataSource;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -96,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                 if (response.isSuccessful() && response.body().getResult() != null) {
 
                     movieList = response.body().getResult();
-                    MovieAdapter movieAdapter = new MovieAdapter(MainActivity.this, movieList);
+                    MovieAdapter movieAdapter = new MovieAdapter(MainActivity.this, movieList,MainActivity.this::onMovieClick);
                     if(type.equals("trend")) {
                         movieHoriTrend.setAdapter(movieAdapter);
                         movieHoriTrend.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -144,15 +142,15 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     @Override
-    public void onMovieClick(MovieOld movie, ImageView movieImageView) {
+    public void onMovieClick(Movie movie, ImageView movieImageView) {
         //here we send movie information to details activity
         //also we'll create the transition animation between two activity
 
         Intent intent = new Intent(this, DetailsActivity.class);
         //send movie into yo DetailsActivity
         intent.putExtra("title", movie.getTitle());
-        intent.putExtra("imgUrl", movie.getThumbnail());
-        intent.putExtra("imgCover", movie.getCoverPhoto());
+        intent.putExtra("imgUrl", movie.getPoster_path());
+        intent.putExtra("imgCover", movie.getBackdrop_path());
         //adding animation
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                 MainActivity.this, movieImageView, "sharedName");

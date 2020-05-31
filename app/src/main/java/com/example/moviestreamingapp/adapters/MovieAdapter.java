@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviestreamingapp.R;
 import com.example.moviestreamingapp.models.Movie;
-import com.example.moviestreamingapp.models.MovieOld;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
 
 import java.util.List;
@@ -24,12 +23,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     List<Movie> mData;
     MovieItemClickListener movieItemClickListener;
 
-    public MovieAdapter(Context context, List<Movie> mData) {
+    public MovieAdapter(Context context, List<Movie> mData, MovieItemClickListener movieItemClickListener) {
         this.context = context;
         this.mData = mData;
         this.movieItemClickListener=movieItemClickListener;
     }
-//, MovieItemClickListener movieItemClickListener
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,7 +63,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //movieItemClickListener.onMovieClick(mData.get(getAdapterPosition()),imgMovie);
+                    movieItemClickListener.onMovieClick(mData.get(getAdapterPosition()),imgMovie);
                 }
             });
             favourite_btn.setOnClickListener(new View.OnClickListener() {
