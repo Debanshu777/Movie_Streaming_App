@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Movie{
+public class Movie implements  Parcelable{
     @SerializedName("vote_count")
     @Expose
     private long vote_count;
@@ -76,6 +76,33 @@ public class Movie{
         this.overview = overview;
         this.release_date = release_date;
     }
+
+    protected Movie(Parcel in) {
+        vote_count = in.readLong();
+        id = in.readInt();
+        video = in.readByte() != 0;
+        vote_average = in.readFloat();
+        title = in.readString();
+        poster_path = in.readString();
+        original_language = in.readString();
+        original_title = in.readString();
+        backdrop_path = in.readString();
+        adult = in.readByte() != 0;
+        overview = in.readString();
+        release_date = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public long getVote_count() {
         return vote_count;
@@ -180,5 +207,26 @@ public class Movie{
 
     public void setRelease_date(String release_date) {
         this.release_date = release_date;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(vote_count);
+        dest.writeInt(id);
+        dest.writeByte((byte) (video ? 1 : 0));
+        dest.writeFloat(vote_average);
+        dest.writeString(title);
+        dest.writeString(poster_path);
+        dest.writeString(original_language);
+        dest.writeString(original_title);
+        dest.writeString(backdrop_path);
+        dest.writeByte((byte) (adult ? 1 : 0));
+        dest.writeString(overview);
+        dest.writeString(release_date);
     }
 }

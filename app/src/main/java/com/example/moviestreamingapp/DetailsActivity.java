@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.moviestreamingapp.adapters.CastAdapter;
 import com.example.moviestreamingapp.models.CastOld;
+import com.example.moviestreamingapp.models.Movie;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -56,14 +57,13 @@ public class DetailsActivity extends AppCompatActivity {
         movie_cast=findViewById(R.id.movie_cast_list);
 
 
-        String movieTitle=getIntent().getExtras().getString("title");
-        String imageResourceId=getIntent().getExtras().getString("imgUrl");
-        String imageCover=getIntent().getExtras().getString("imgCover");
 
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500"+imageResourceId).into(movieThumbnailImg);
-        //movieThumbnailImg.setImageResource(imageResourceId);
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500"+imageCover).into(movieCoverImg);
-        movie_title.setText(movieTitle);
+
+        Movie movie=getIntent().getParcelableExtra("movie_parcel");
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500"+movie.getPoster_path()).into(movieThumbnailImg);
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500"+movie.getBackdrop_path()).into(movieCoverImg);
+        movie_title.setText(movie.getTitle());
+        movie_description.setText(movie.getOverview());
 
 
         movieCoverImg.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));

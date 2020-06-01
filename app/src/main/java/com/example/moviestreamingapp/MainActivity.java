@@ -148,9 +148,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
 
         Intent intent = new Intent(this, DetailsActivity.class);
         //send movie into yo DetailsActivity
-        intent.putExtra("title", movie.getTitle());
-        intent.putExtra("imgUrl", movie.getPoster_path());
-        intent.putExtra("imgCover", movie.getBackdrop_path());
+        intent.putExtra("movie_parcel", movie);
         //adding animation
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                 MainActivity.this, movieImageView, "sharedName");
