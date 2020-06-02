@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviestreamingapp.R;
 import com.example.moviestreamingapp.models.CastOld;
+import com.example.moviestreamingapp.models.Movie;
 
 import java.util.List;
 
@@ -19,9 +21,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewViewHolder> {
 
     Context context;
-    List<CastOld> mData;
+    List<Movie> mData;
 
-    public PreviewAdapter(Context context, List<CastOld> mData) {
+    public PreviewAdapter(Context context, List<Movie> mData) {
         this.context = context;
         this.mData = mData;
     }
@@ -35,7 +37,9 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
 
     @Override
     public void onBindViewHolder(@NonNull PreviewAdapter.PreviewViewHolder holder, int position) {
-        Glide.with(context).load(mData.get(position).getImg_link()).into(holder.preview_img);
+        Movie model=mData.get(position);
+        Glide.with(context).load("https://image.tmdb.org/t/p/w500"+model.getPoster_path()).transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.preview_img);
     }
 
     @Override

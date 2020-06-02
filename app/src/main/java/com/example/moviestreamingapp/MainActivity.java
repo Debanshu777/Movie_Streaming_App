@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,11 +26,14 @@ import com.example.moviestreamingapp.models.Slide;
 import com.example.moviestreamingapp.adapters.SlidePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     private List<Slide> listSlides;
     private ViewPager sliderpager;
     private TabLayout indicator;
-    private List<Movie> popularList = new ArrayList<>();
+    private List<Movie> upcomingList = new ArrayList<>();
+    private List<Movie> previewList = new ArrayList<>();
     private List<Movie> movieList=new ArrayList<>();
     private RecyclerView movieHoriTrend, movieHoriPop, previews, upcomings;
 
@@ -56,27 +62,50 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void upcoming_list() {
-        List<CastOld> upcominglist = new ArrayList<>();
-        upcominglist.add(new CastOld("name1", R.drawable.image3));
-        upcominglist.add(new CastOld("name2", R.drawable.image4));
-        upcominglist.add(new CastOld("name3", R.drawable.slider1));
-        upcominglist.add(new CastOld("name4", R.drawable.slider2));
-        upcominglist.add(new CastOld("name5", R.drawable.image5));
-        UpcomingAdapter upcomingAdapter = new UpcomingAdapter(this, upcominglist);
-        upcomings.setAdapter(upcomingAdapter);
-        upcomings.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+        Call<MovieResponse> call;
+        call = retrofitService.getUpcomingList(BuildConfig.THE_MOVIE_DB_API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if (response.isSuccessful() && response.body().getResult() != null){
+                    upcomingList=response.body().getResult();
+                    UpcomingAdapter upcomingAdapter = new UpcomingAdapter(MainActivity.this, upcomingList,MainActivity.this::onMovieClick);
+                    upcomings.setAdapter(upcomingAdapter);
+                    upcomings.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                    Paper.book().write("CacheUpcoming",previewList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void preview_list() {
-        List<CastOld> castlist = new ArrayList<>();
-        castlist.add(new CastOld("name1", R.drawable.image3));
-        castlist.add(new CastOld("name2", R.drawable.image4));
-        castlist.add(new CastOld("name3", R.drawable.slider1));
-        castlist.add(new CastOld("name4", R.drawable.slider2));
-        castlist.add(new CastOld("name5", R.drawable.image5));
-        PreviewAdapter previewAdapter = new PreviewAdapter(this, castlist);
-        previews.setAdapter(previewAdapter);
-        previews.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+        Call<MovieResponse> call;
+        call = retrofitService.getPreviewList(BuildConfig.THE_MOVIE_DB_API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if (response.isSuccessful() && response.body().getResult() != null){
+                    previewList=response.body().getResult();
+                    PreviewAdapter previewAdapter = new PreviewAdapter(MainActivity.this, previewList);
+                    previews.setAdapter(previewAdapter);
+                    previews.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                    Paper.book().write("CachePreview",previewList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void movieHorizontalList(String type) {
@@ -98,17 +127,17 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                     if(type.equals("trend")) {
                         movieHoriTrend.setAdapter(movieAdapter);
                         movieHoriTrend.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        Paper.book().write("CacheTrending",movieHoriTrend);
                     }
                     else{
                         movieHoriPop.setAdapter(movieAdapter);
                         movieHoriPop.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        Paper.book().write("CachePopular",movieHoriPop);
                     }
                 }
                 else {
                     Toast.makeText(MainActivity.this, ""+response.errorBody(), Toast.LENGTH_SHORT).show();
                 }
-
-                // Toast.makeText(MainActivity.this, ""+popularList.size(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -139,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         indicator = findViewById(R.id.indicator);
         movieHoriTrend = findViewById(R.id.Rx_movies);
         movieHoriPop = findViewById(R.id.Rx_movies_popular);
+        Paper.init(this);
     }
 
     @Override
@@ -155,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         startActivity(intent, options.toBundle());
     }
 
-
     class SliderTimer extends TimerTask {
 
         @Override
@@ -171,4 +200,20 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
             });
         }
     }
+
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress address = InetAddress.getByName("www.google.com");
+            return !address.equals("");
+        } catch (UnknownHostException e) {
+            // Log error
+        }
+        return false;
+    }
+
+
 }

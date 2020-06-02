@@ -12,4 +12,10 @@ public interface RetrofitService  {
 
     @GET("movie/top_rated")
     Call<MovieResponse> getTrendingList(@Query("api_key") String api_key);
+
+    @GET("movie/upcoming")
+    Call<MovieResponse> getUpcomingList(@Query("api_key") String api_key);
+
+    @GET("movie/now_playing")
+    Call<MovieResponse> getPreviewList(@Query("api_key") String api_key);
 }
