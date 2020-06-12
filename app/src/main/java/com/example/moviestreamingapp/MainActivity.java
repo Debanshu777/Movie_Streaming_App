@@ -54,97 +54,114 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         setContentView(R.layout.activity_main);
         init();
         movieViewFlipper();
-        movieHorizontalList("trend");
-        movieHorizontalList("popular");
-        preview_list();
-        upcoming_list();
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                movieHorizontalList("trend");
+                movieHorizontalList("popular");
+                preview_list();
+                upcoming_list();
+            }
+        }).start();
     }
 
     private void upcoming_list() {
-        RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
-        Call<MovieResponse> call;
-        call = retrofitService.getUpcomingList(BuildConfig.THE_MOVIE_DB_API_KEY);
-        call.enqueue(new Callback<MovieResponse>() {
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                if (response.isSuccessful() && response.body().getResult() != null){
-                    upcomingList=response.body().getResult();
-                    UpcomingAdapter upcomingAdapter = new UpcomingAdapter(MainActivity.this, upcomingList,MainActivity.this::onMovieClick);
-                    upcomings.setAdapter(upcomingAdapter);
-                    upcomings.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                    Paper.book().write("CacheUpcoming",previewList);
-                }
-            }
+            public void run() {
+                RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+                Call<MovieResponse> call;
+                call = retrofitService.getUpcomingList(BuildConfig.THE_MOVIE_DB_API_KEY);
+                call.enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<MovieResponse> call,@NonNull Response<MovieResponse> response) {
+                        if (response.isSuccessful() && response.body().getResult() != null){
+                            upcomingList=response.body().getResult();
+                            UpcomingAdapter upcomingAdapter = new UpcomingAdapter(MainActivity.this, upcomingList,MainActivity.this::onMovieClick);
+                            upcomings.setAdapter(upcomingAdapter);
+                            upcomings.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            Paper.book().write("CacheUpcoming",previewList);
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(@NonNull Call<MovieResponse> call,@NonNull Throwable t) {
 
+                    }
+                });
             }
-        });
+        }).start();
     }
 
     private void preview_list() {
-        RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
-        Call<MovieResponse> call;
-        call = retrofitService.getPreviewList(BuildConfig.THE_MOVIE_DB_API_KEY);
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                if (response.isSuccessful() && response.body().getResult() != null){
-                    previewList=response.body().getResult();
-                    PreviewAdapter previewAdapter = new PreviewAdapter(MainActivity.this, previewList);
-                    previews.setAdapter(previewAdapter);
-                    previews.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                    Paper.book().write("CachePreview",previewList);
-                }
-            }
+       new Thread(new Runnable() {
+           @Override
+           public void run() {
+               RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+               Call<MovieResponse> call;
+               call = retrofitService.getPreviewList(BuildConfig.THE_MOVIE_DB_API_KEY);
+               call.enqueue(new Callback<MovieResponse>() {
+                   @Override
+                   public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                       if (response.isSuccessful() && response.body().getResult() != null){
+                           previewList=response.body().getResult();
+                           PreviewAdapter previewAdapter = new PreviewAdapter(MainActivity.this, previewList);
+                           previews.setAdapter(previewAdapter);
+                           previews.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                           Paper.book().write("CachePreview",previewList);
+                       }
+                   }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                   @Override
+                   public void onFailure(Call<MovieResponse> call, Throwable t) {
 
-            }
-        });
+                   }
+               });
+           }
+       }).start();
 
     }
 
     private void movieHorizontalList(String type) {
-        RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
-        Call<MovieResponse> call;
-        if(type =="trend") {
-            call = retrofitService.getTrendingList(BuildConfig.THE_MOVIE_DB_API_KEY);
-        }
-        else{
-            call = retrofitService.getPopularList(BuildConfig.THE_MOVIE_DB_API_KEY);
-        }
-        call.enqueue(new Callback<MovieResponse>() {
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
-                if (response.isSuccessful() && response.body().getResult() != null) {
-
-                    movieList = response.body().getResult();
-                    MovieAdapter movieAdapter = new MovieAdapter(MainActivity.this, movieList,MainActivity.this::onMovieClick);
-                    if(type.equals("trend")) {
-                        movieHoriTrend.setAdapter(movieAdapter);
-                        movieHoriTrend.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        Paper.book().write("CacheTrending",movieHoriTrend);
-                    }
-                    else{
-                        movieHoriPop.setAdapter(movieAdapter);
-                        movieHoriPop.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        Paper.book().write("CachePopular",movieHoriPop);
-                    }
+            public void run() {
+                RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+                Call<MovieResponse> call;
+                if(type =="trend") {
+                    call = retrofitService.getTrendingList(BuildConfig.THE_MOVIE_DB_API_KEY);
                 }
-                else {
-                    Toast.makeText(MainActivity.this, ""+response.errorBody(), Toast.LENGTH_SHORT).show();
+                else{
+                    call = retrofitService.getPopularList(BuildConfig.THE_MOVIE_DB_API_KEY);
                 }
-            }
+                call.enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
+                        if (response.isSuccessful() && response.body().getResult() != null) {
 
-            @Override
-            public void onFailure(@NonNull Call<MovieResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            movieList = response.body().getResult();
+                            MovieAdapter movieAdapter = new MovieAdapter(MainActivity.this, movieList,MainActivity.this);
+                            if(type.equals("trend")) {
+                                movieHoriTrend.setAdapter(movieAdapter);
+                                movieHoriTrend.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            }
+                            else{
+                                movieHoriPop.setAdapter(movieAdapter);
+                                movieHoriPop.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            }
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, ""+response.errorBody(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<MovieResponse> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-        });
+        }).start();
     }
 
     private void movieViewFlipper() {
@@ -200,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
             });
         }
     }
+
 
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
