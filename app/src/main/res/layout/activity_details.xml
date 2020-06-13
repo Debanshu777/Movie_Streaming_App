@@ -59,6 +59,7 @@
         <TextView
             android:id="@+id/details_movie_title"
             android:layout_width="0dp"
+            android:textSize="18dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
@@ -69,47 +70,104 @@
             app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
 
-        <TextView
-            android:id="@+id/detail_movie_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/text_bg_blue"
-            android:lineSpacingExtra="8dp"
-            android:text="@string/sample_text"
-            android:textColor="@color/text_light_blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/text_bg_blue"
-            android:padding="16dp"
-            android:text="Cast"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_description"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movie_cast_list"
+        <FrameLayout
+            android:id="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flip">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="description"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textdes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Description"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/detail_movie_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/textdes"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@string/sample_text"
+                    android:textColor="@android:color/white"
+                    />
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/cast"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flip">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="cast"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textcast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Cast"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_cast_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/textcast"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp" />
+
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
