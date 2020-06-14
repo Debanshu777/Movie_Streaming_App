@@ -28,8 +28,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
             app:layout_constraintTop_toTopOf="@+id/detail_movie_cover"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/gradient_bottom" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -70,6 +72,26 @@
             app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
 
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:layout_width="80dp"
+            android:layout_height="18dp"
+            android:maxHeight="20dp"
+            android:numStars="5"
+            android:rating="2.5"
+            android:stepSize="0.1"
+            android:maxWidth="100dp"
+            app:mrb_progressBackgroundTint="#101010"
+            android:id="@+id/rating_bar"
+            android:layout_marginRight="20dp"
+            android:isIndicator="false"
+            app:mrb_fillBackgroundStars="true"
+            app:layout_constraintBottom_toTopOf="@+id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_movie_title"
+            />
+
+
         <FrameLayout
             android:id="@+id/description"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"
@@ -83,7 +105,7 @@
                 android:layout_marginTop="13dp"
                 android:alpha="0.2"
                 android:fontFamily="sans-serif-black"
-                android:text="description"
+                android:text="storyline"
                 android:textColor="@color/colorAccent"
                 android:textSize="75dp" />
 
@@ -98,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Description"
+                    android:text="Storyline"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 

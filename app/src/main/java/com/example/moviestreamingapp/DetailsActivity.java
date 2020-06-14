@@ -20,12 +20,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
+
 public class DetailsActivity extends AppCompatActivity {
     private ImageView movieThumbnailImg,movieCoverImg;
     private TextView movie_title,movie_description;
     private FloatingActionButton play_btn;
     private RecyclerView movie_cast;
     private CastAdapter castAdapter;
+    private MaterialRatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,8 @@ public class DetailsActivity extends AppCompatActivity {
         movie_description=findViewById(R.id.detail_movie_description);
         movie_title=findViewById(R.id.details_movie_title);
         movie_cast=findViewById(R.id.movie_cast_list);
+        ratingBar=findViewById(R.id.rating_bar);
+
 
 
 
@@ -64,6 +70,9 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500"+movie.getBackdrop_path()).into(movieCoverImg);
         movie_title.setText(movie.getTitle());
         movie_description.setText(movie.getOverview());
+        ratingBar.setIsIndicator(false);
+        ratingBar.setRating(movie.getVote_average()/2);
+
 
 
         movieCoverImg.setAnimation(AnimationUtils.loadAnimation(this,R.anim.scale_animation));
