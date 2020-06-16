@@ -64,13 +64,37 @@
             android:textSize="18dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
+
+        <TextView
+            android:id="@+id/adult_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="U/A"
+            android:textSize="10dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#fff"
+            android:layout_marginTop="5dp"
+            app:layout_constraintLeft_toRightOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/details_movie_title" />
+        <TextView
+            android:id="@+id/time_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2h 30m"
+            android:textColor="#fff"
+            android:textSize="10dp"
+            app:layout_constraintLeft_toRightOf="@+id/adult_details"
+            app:layout_constraintTop_toBottomOf="@+id/details_movie_title"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            />
 
 
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -88,7 +112,7 @@
             app:mrb_fillBackgroundStars="true"
             app:layout_constraintBottom_toTopOf="@+id/description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_movie_title"
+            app:layout_constraintTop_toBottomOf="@+id/adult_details"
             />
 
 

@@ -15,8 +15,10 @@
         android:layout_width="110dp"
         android:layout_height="100dp"
         android:padding="3dp"
+        android:src="@drawable/ic_person"
         android:layout_gravity="center"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        />
 
     <TextView
         android:layout_width="match_parent"

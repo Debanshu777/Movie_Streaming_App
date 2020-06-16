@@ -1,5 +1,6 @@
 package com.example.moviestreamingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.moviestreamingapp.Client.RetrofitClient;
+import com.example.moviestreamingapp.Client.RetrofitService;
 import com.example.moviestreamingapp.adapters.CastAdapter;
-import com.example.moviestreamingapp.models.CastOld;
+import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastResponse;
 import com.example.moviestreamingapp.models.Movie;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -21,6 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DetailsActivity extends AppCompatActivity {
@@ -30,26 +37,42 @@ public class DetailsActivity extends AppCompatActivity {
     private RecyclerView movie_cast;
     private CastAdapter castAdapter;
     private MaterialRatingBar ratingBar;
+    private List<Cast> castlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         init();
-        setUpCastList();
-
-
     }
 
-    private void setUpCastList() {
-        List<CastOld> castlist=new ArrayList<>();
-        castlist.add(new CastOld("name1",R.drawable.cast1));
-        castlist.add(new CastOld("name2",R.drawable.cast2));
-        castlist.add(new CastOld("name3",R.drawable.cast3));
-        castlist.add(new CastOld("name4",R.drawable.cast4));
-        castAdapter=new CastAdapter(this,castlist);
-        movie_cast.setAdapter(castAdapter);
-        movie_cast.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+    private void setUpCastList(String id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+                Call<CastResponse> call;
+                call = retrofitService.getCastList(id,BuildConfig.THE_MOVIE_DB_API_KEY);
+                call.enqueue(new Callback<CastResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<CastResponse> call, @NonNull Response<CastResponse> response) {
+                        if (response.isSuccessful() && response.body().getCast() != null){
+                            castlist=response.body().getCast();
+                            CastAdapter castAdapter = new CastAdapter(DetailsActivity.this,castlist);
+                            movie_cast.setAdapter(castAdapter);
+                            movie_cast.setLayoutManager(new LinearLayoutManager(DetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            castAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<CastResponse> call,@NonNull Throwable t) {
+
+                    }
+                });
+            }
+        }).start();
+
     }
 
     void init(){
@@ -60,6 +83,7 @@ public class DetailsActivity extends AppCompatActivity {
         movie_title=findViewById(R.id.details_movie_title);
         movie_cast=findViewById(R.id.movie_cast_list);
         ratingBar=findViewById(R.id.rating_bar);
+        castlist=new ArrayList<>();
 
 
 
@@ -72,6 +96,12 @@ public class DetailsActivity extends AppCompatActivity {
         movie_description.setText(movie.getOverview());
         ratingBar.setIsIndicator(true);
         ratingBar.setRating(movie.getVote_average()/2);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                setUpCastList(String.valueOf(movie.getId()));
+            }
+        }).start();
 
 
 

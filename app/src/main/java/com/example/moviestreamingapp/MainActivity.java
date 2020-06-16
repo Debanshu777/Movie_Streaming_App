@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.moviestreamingapp.Client.RetrofitClient;
+import com.example.moviestreamingapp.Client.RetrofitService;
 import com.example.moviestreamingapp.adapters.PreviewAdapter;
 import com.example.moviestreamingapp.adapters.UpcomingAdapter;
-import com.example.moviestreamingapp.models.CastOld;
 import com.example.moviestreamingapp.models.Movie;
 import com.example.moviestreamingapp.adapters.MovieAdapter;
 import com.example.moviestreamingapp.models.MovieItemClickListener;
