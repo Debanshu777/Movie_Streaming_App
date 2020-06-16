@@ -3,15 +3,12 @@ package com.example.moviestreamingapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.versionedparcelable.ParcelField;
-import androidx.versionedparcelable.VersionedParcelize;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Movie implements  Parcelable{
+public class Movie implements Parcelable {
     @SerializedName("vote_count")
     @Expose
     private long vote_count;
@@ -52,7 +49,7 @@ public class Movie implements  Parcelable{
     @Expose
     private String release_date;
 
-    public Movie(){
+    public Movie() {
 
     }
 

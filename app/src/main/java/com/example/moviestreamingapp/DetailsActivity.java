@@ -70,7 +70,7 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500"+movie.getBackdrop_path()).into(movieCoverImg);
         movie_title.setText(movie.getTitle());
         movie_description.setText(movie.getOverview());
-        ratingBar.setIsIndicator(false);
+        ratingBar.setIsIndicator(true);
         ratingBar.setRating(movie.getVote_average()/2);
 
 
