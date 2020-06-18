@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     private List<Movie> upcomingList = new ArrayList<>();
     private List<Movie> previewList = new ArrayList<>();
     private List<Movie> movieList=new ArrayList<>();
-    private RecyclerView movieHoriTrend, movieHoriPop, previews, upcomings;
+    private RecyclerView movieHoriTrend, movieHoriPop, previews, upcomings,toprated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
             public void run() {
                 movieHorizontalList("trend");
                 movieHorizontalList("popular");
+                movieHorizontalList("toprated");
                 preview_list();
                 upcoming_list();
             }
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                             UpcomingAdapter upcomingAdapter = new UpcomingAdapter(MainActivity.this, upcomingList,MainActivity.this::onMovieClick);
                             upcomings.setAdapter(upcomingAdapter);
                             upcomings.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                            Paper.book().write("CacheUpcoming",previewList);
                         }
                     }
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                            PreviewAdapter previewAdapter = new PreviewAdapter(MainActivity.this, previewList);
                            previews.setAdapter(previewAdapter);
                            previews.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                           Paper.book().write("CachePreview",previewList);
+
                        }
                    }
 
@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                 if(type =="trend") {
                     call = retrofitService.getTrendingList(BuildConfig.THE_MOVIE_DB_API_KEY);
                 }
+                else if(type =="toprated"){
+                    call = retrofitService.getTopRatedList(BuildConfig.THE_MOVIE_DB_API_KEY);
+                }
                 else{
                     call = retrofitService.getPopularList(BuildConfig.THE_MOVIE_DB_API_KEY);
                 }
@@ -144,6 +147,10 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                             if(type.equals("trend")) {
                                 movieHoriTrend.setAdapter(movieAdapter);
                                 movieHoriTrend.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            }
+                            else if(type.equals("toprated")) {
+                                toprated.setAdapter(movieAdapter);
+                                toprated.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                             }
                             else{
                                 movieHoriPop.setAdapter(movieAdapter);
@@ -185,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         indicator = findViewById(R.id.indicator);
         movieHoriTrend = findViewById(R.id.Rx_movies);
         movieHoriPop = findViewById(R.id.Rx_movies_popular);
+        toprated=findViewById(R.id.toprated);
         Paper.init(this);
     }
 

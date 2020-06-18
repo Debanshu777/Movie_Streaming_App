@@ -177,10 +177,54 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/pop_layout"
+            android:id="@+id/toprated_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/trendz_layout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="top rated"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Top Rated"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/toprated"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView6"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:padding="5dp" />
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/pop_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toprated_layout">
 
             <TextView
                 android:layout_width="match_parent"
