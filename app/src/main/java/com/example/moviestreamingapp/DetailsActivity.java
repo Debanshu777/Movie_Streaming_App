@@ -32,11 +32,12 @@ import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity {
     private ImageView movieThumbnailImg,movieCoverImg;
-    private TextView movie_title,movie_description;
+    private TextView movie_title,movie_description,time_details,adult_details;
     private FloatingActionButton play_btn;
     private RecyclerView movie_cast;
     private CastAdapter castAdapter;
     private MaterialRatingBar ratingBar;
+    private Movie movie;
     private List<Cast> castlist;
 
     @Override
@@ -44,55 +45,16 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         init();
+        pagesetup();
     }
 
-    private void setUpCastList(String id) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
-                Call<CastResponse> call;
-                call = retrofitService.getCastList(id,BuildConfig.THE_MOVIE_DB_API_KEY);
-                call.enqueue(new Callback<CastResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<CastResponse> call, @NonNull Response<CastResponse> response) {
-                        if (response.isSuccessful() && response.body().getCast() != null){
-                            castlist=response.body().getCast();
-                            CastAdapter castAdapter = new CastAdapter(DetailsActivity.this,castlist);
-                            movie_cast.setAdapter(castAdapter);
-                            movie_cast.setLayoutManager(new LinearLayoutManager(DetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                            castAdapter.notifyDataSetChanged();
-                        }
-                    }
+    private void pagesetup() {
 
-                    @Override
-                    public void onFailure(@NonNull Call<CastResponse> call,@NonNull Throwable t) {
-
-                    }
-                });
-            }
-        }).start();
-
-    }
-
-    void init(){
-        play_btn=findViewById(R.id.play_fab);
-        movieThumbnailImg=findViewById(R.id.detail_movie_img);
-        movieCoverImg=findViewById(R.id.detail_movie_cover);
-        movie_description=findViewById(R.id.detail_movie_description);
-        movie_title=findViewById(R.id.details_movie_title);
-        movie_cast=findViewById(R.id.movie_cast_list);
-        ratingBar=findViewById(R.id.rating_bar);
-        castlist=new ArrayList<>();
-
-
-
-
-
-        Movie movie=getIntent().getParcelableExtra("movie_parcel");
+        movie=getIntent().getParcelableExtra("movie_parcel");
         Glide.with(this).load("https://image.tmdb.org/t/p/w500"+movie.getPoster_path()).into(movieThumbnailImg);
         Glide.with(this).load("https://image.tmdb.org/t/p/w500"+movie.getBackdrop_path()).into(movieCoverImg);
         movie_title.setText(movie.getTitle());
+        adult_details.setText(movie.isAdult()?"A":"U/A");
         movie_description.setText(movie.getOverview());
         ratingBar.setIsIndicator(true);
         ratingBar.setRating(movie.getVote_average()/2);
@@ -114,7 +76,49 @@ public class DetailsActivity extends AppCompatActivity {
                 startActivity(new Intent(DetailsActivity.this,MoviePlayerActivity.class));
             }
         });
+    }
+
+    private void setUpCastList(String id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+                Call<CastResponse> call;
+                call = retrofitService.getCastList(id,BuildConfig.THE_MOVIE_DB_API_KEY);
+                call.enqueue(new Callback<CastResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<CastResponse> call, @NonNull Response<CastResponse> response) {
+                        if (response.isSuccessful() && response.body().getCast() != null){
+                            castlist=response.body().getCast();
+                            CastAdapter castAdapter = new CastAdapter(DetailsActivity.this,castlist);
+                            movie_cast.setAdapter(castAdapter);
+                            movie_cast.setHasFixedSize(true);
+                            movie_cast.setLayoutManager(new LinearLayoutManager(DetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            castAdapter.notifyDataSetChanged();
 
 
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<CastResponse> call,@NonNull Throwable t) {
+
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    void init(){
+        play_btn=findViewById(R.id.play_fab);
+        movieThumbnailImg=findViewById(R.id.detail_movie_img);
+        movieCoverImg=findViewById(R.id.detail_movie_cover);
+        movie_description=findViewById(R.id.detail_movie_description);
+        movie_title=findViewById(R.id.details_movie_title);
+        movie_cast=findViewById(R.id.movie_cast_list);
+        ratingBar=findViewById(R.id.rating_bar);
+        adult_details=findViewById(R.id.adult_details);
+        castlist=new ArrayList<>();
     }
 }

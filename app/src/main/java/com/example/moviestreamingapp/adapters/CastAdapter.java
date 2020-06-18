@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,11 +41,11 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
     @Override
     public void onBindViewHolder(@NonNull CastViewHolder holder, int position) {
         Cast model=mData.get(position);
+        holder.cast_name.setText(model.getName());
         if(model.getProfilePath()!=null) {
             Glide.with(context).load("https://image.tmdb.org/t/p/w500" + model.getProfilePath()).apply(new RequestOptions()
                     .centerInside()
-                    .format(DecodeFormat.PREFER_RGB_565)
-                    .override(100,100)).transition(DrawableTransitionOptions.withCrossFade())
+                    .format(DecodeFormat.PREFER_RGB_565)).transition(DrawableTransitionOptions.withCrossFade())
                     .into(holder.cast_img);
         }
     }
@@ -60,10 +61,11 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
 
     public class CastViewHolder extends RecyclerView.ViewHolder{
         CircleImageView cast_img;
-
+        TextView cast_name;
         public CastViewHolder(@NonNull View itemView) {
             super(itemView);
             cast_img=itemView.findViewById(R.id.image_cast);
+            cast_name=itemView.findViewById(R.id.cast_name);
         }
     }
 }
