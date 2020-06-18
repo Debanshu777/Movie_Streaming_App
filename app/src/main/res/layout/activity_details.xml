@@ -28,8 +28,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
             app:layout_constraintTop_toTopOf="@+id/detail_movie_cover"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/gradient_bottom" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -59,9 +61,10 @@
         <TextView
             android:id="@+id/details_movie_title"
             android:layout_width="0dp"
+            android:textSize="18dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textColor="@android:color/white"
@@ -70,46 +73,147 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
 
         <TextView
-            android:id="@+id/detail_movie_description"
-            android:layout_width="0dp"
+            android:id="@+id/adult_details"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/text_bg_blue"
-            android:lineSpacingExtra="8dp"
-            android:text="@string/sample_text"
-            android:textColor="@color/text_light_blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img" />
-
+            android:text="U/A"
+            android:textSize="10dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#fff"
+            android:layout_marginTop="5dp"
+            app:layout_constraintLeft_toRightOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/details_movie_title" />
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
+            android:id="@+id/time_details"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/text_bg_blue"
-            android:padding="16dp"
-            android:text="Cast"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_description"
-            app:layout_constraintVertical_bias="0.0" />
+            android:text="2h 30m"
+            android:textColor="#fff"
+            android:textSize="10dp"
+            app:layout_constraintLeft_toRightOf="@+id/adult_details"
+            app:layout_constraintTop_toBottomOf="@+id/details_movie_title"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movie_cast_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:layout_width="80dp"
+            android:layout_height="18dp"
+            android:maxHeight="20dp"
+            android:numStars="5"
+            android:rating="2.5"
+            android:stepSize="0.1"
+            android:maxWidth="100dp"
+            app:mrb_progressBackgroundTint="#101010"
+            android:id="@+id/rating_bar"
+            android:layout_marginEnd="20dp"
+            android:isIndicator="true"
+            app:mrb_fillBackgroundStars="true"
+            app:layout_constraintBottom_toTopOf="@+id/description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/adult_details"
+            />
+
+
+        <FrameLayout
+            android:id="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flip">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="storyline"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textdes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Storyline"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/detail_movie_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/textdes"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@string/sample_text"
+                    android:textColor="@android:color/white"
+                    />
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/cast"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/flip">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:alpha="0.2"
+                android:fontFamily="sans-serif-black"
+                android:text="cast"
+                android:textColor="@color/colorAccent"
+                android:textSize="75dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp">
+
+                <TextView
+                    android:id="@+id/textcast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:padding="5dp"
+                    android:text="Cast"
+                    android:textColor="#fff"
+                    android:textSize="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_cast_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/textcast"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp" />
+
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

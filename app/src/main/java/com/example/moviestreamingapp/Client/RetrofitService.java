@@ -1,9 +1,11 @@
-package com.example.moviestreamingapp;
+package com.example.moviestreamingapp.Client;
 
+import com.example.moviestreamingapp.models.CastResponse;
 import com.example.moviestreamingapp.models.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService  {
@@ -18,4 +20,7 @@ public interface RetrofitService  {
 
     @GET("movie/now_playing")
     Call<MovieResponse> getPreviewList(@Query("api_key") String api_key);
+
+    @GET("movie/{movie_id}/credits")
+    Call<CastResponse> getCastList(@Path("movie_id") String movie_id,@Query("api_key") String api_key);
 }
