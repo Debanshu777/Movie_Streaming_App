@@ -3,10 +3,10 @@ package com.example.moviestreamingapp.models;
 public class Slide {
     private int Image;
     private String Title;
+    private Movie movie;
 
-    public Slide(int image, String title) {
-        Image = image;
-        Title = title;
+    public Slide(Movie movie) {
+        this.movie=movie;
     }
 
     public int getImage() {

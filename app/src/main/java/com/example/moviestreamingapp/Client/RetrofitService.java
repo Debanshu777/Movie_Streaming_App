@@ -15,6 +15,9 @@ public interface RetrofitService  {
     @GET("trending/movie/week")
     Call<MovieResponse> getTrendingList(@Query("api_key") String api_key);
 
+    @GET("trending/movie/day")
+    Call<MovieResponse>getSliderList(@Query("api_key") String api_key);
+
     @GET("movie/top_rated")
     Call<MovieResponse> getTopRatedList(@Query("api_key") String api_key);
 

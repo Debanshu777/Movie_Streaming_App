@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,13 +41,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MovieItemClickListener {
 
-    private List<Slide> listSlides;
+    private List<Movie> listSlides = new ArrayList<>();
+    private List<Movie> slides = new ArrayList<>();
     private ViewPager sliderpager;
+    private SlidePagerAdapter slideAdapter;
     private TabLayout indicator;
     private List<Movie> upcomingList = new ArrayList<>();
     private List<Movie> previewList = new ArrayList<>();
-    private List<Movie> movieList=new ArrayList<>();
-    private RecyclerView movieHoriTrend, movieHoriPop, previews, upcomings,toprated;
+    private List<Movie> movieList = new ArrayList<>();
+    private RecyclerView movieHoriTrend, movieHoriPop, previews, upcomings, toprated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +78,17 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                 call = retrofitService.getUpcomingList(BuildConfig.THE_MOVIE_DB_API_KEY);
                 call.enqueue(new Callback<MovieResponse>() {
                     @Override
-                    public void onResponse(@NonNull Call<MovieResponse> call,@NonNull Response<MovieResponse> response) {
-                        if (response.isSuccessful() && response.body().getResult() != null){
-                            upcomingList=response.body().getResult();
-                            UpcomingAdapter upcomingAdapter = new UpcomingAdapter(MainActivity.this, upcomingList,MainActivity.this::onMovieClick);
+                    public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
+                        if (response.isSuccessful() && response.body().getResult() != null) {
+                            upcomingList = response.body().getResult();
+                            UpcomingAdapter upcomingAdapter = new UpcomingAdapter(MainActivity.this, upcomingList, MainActivity.this::onMovieClick);
                             upcomings.setAdapter(upcomingAdapter);
                             upcomings.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         }
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<MovieResponse> call,@NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
 
                     }
                 });
@@ -94,31 +97,31 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void preview_list() {
-       new Thread(new Runnable() {
-           @Override
-           public void run() {
-               RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
-               Call<MovieResponse> call;
-               call = retrofitService.getPreviewList(BuildConfig.THE_MOVIE_DB_API_KEY);
-               call.enqueue(new Callback<MovieResponse>() {
-                   @Override
-                   public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                       if (response.isSuccessful() && response.body().getResult() != null){
-                           previewList=response.body().getResult();
-                           PreviewAdapter previewAdapter = new PreviewAdapter(MainActivity.this, previewList);
-                           previews.setAdapter(previewAdapter);
-                           previews.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+                Call<MovieResponse> call;
+                call = retrofitService.getPreviewList(BuildConfig.THE_MOVIE_DB_API_KEY);
+                call.enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                        if (response.isSuccessful() && response.body().getResult() != null) {
+                            previewList = response.body().getResult();
+                            PreviewAdapter previewAdapter = new PreviewAdapter(MainActivity.this, previewList);
+                            previews.setAdapter(previewAdapter);
+                            previews.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
-                       }
-                   }
+                        }
+                    }
 
-                   @Override
-                   public void onFailure(Call<MovieResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<MovieResponse> call, Throwable t) {
 
-                   }
-               });
-           }
-       }).start();
+                    }
+                });
+            }
+        }).start();
 
     }
 
@@ -128,13 +131,11 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
             public void run() {
                 RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
                 Call<MovieResponse> call;
-                if(type =="trend") {
+                if (type == "trend") {
                     call = retrofitService.getTrendingList(BuildConfig.THE_MOVIE_DB_API_KEY);
-                }
-                else if(type =="toprated"){
+                } else if (type == "toprated") {
                     call = retrofitService.getTopRatedList(BuildConfig.THE_MOVIE_DB_API_KEY);
-                }
-                else{
+                } else {
                     call = retrofitService.getPopularList(BuildConfig.THE_MOVIE_DB_API_KEY);
                 }
                 call.enqueue(new Callback<MovieResponse>() {
@@ -143,22 +144,19 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                         if (response.isSuccessful() && response.body().getResult() != null) {
 
                             movieList = response.body().getResult();
-                            MovieAdapter movieAdapter = new MovieAdapter(MainActivity.this, movieList,MainActivity.this);
-                            if(type.equals("trend")) {
+                            MovieAdapter movieAdapter = new MovieAdapter(MainActivity.this, movieList, MainActivity.this);
+                            if (type.equals("trend")) {
                                 movieHoriTrend.setAdapter(movieAdapter);
                                 movieHoriTrend.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                            }
-                            else if(type.equals("toprated")) {
+                            } else if (type.equals("toprated")) {
                                 toprated.setAdapter(movieAdapter);
                                 toprated.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                            }
-                            else{
+                            } else {
                                 movieHoriPop.setAdapter(movieAdapter);
                                 movieHoriPop.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                             }
-                        }
-                        else {
-                            Toast.makeText(MainActivity.this, ""+response.errorBody(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "" + response.errorBody(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -172,18 +170,61 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void movieViewFlipper() {
-        listSlides = new ArrayList<>();
-        listSlides.add(new Slide(R.drawable.image1, "Joker"));
-        listSlides.add(new Slide(R.drawable.image5, "Bloodspot"));
-        listSlides.add(new Slide(R.drawable.slider1, "Avengers:EndGame"));
-        listSlides.add(new Slide(R.drawable.image3, "Greta"));
 
-        SlidePagerAdapter adapter = new SlidePagerAdapter(this, listSlides);
-        sliderpager.setAdapter(adapter);
+//        listSlides.add(new Slide(R.drawable.image1, "Joker"));
+//        listSlides.add(new Slide(R.drawable.image5, "Bloodspot"));
+//        listSlides.add(new Slide(R.drawable.slider1, "Avengers:EndGame"));
+//        listSlides.add(new Slide(R.drawable.image3, "Greta"));
+
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new SliderTimer(), 3000, 3000);
-        indicator.setupWithViewPager(sliderpager, true);
+        RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
+        Call<MovieResponse> call;
+        call = retrofitService.getSliderList(BuildConfig.THE_MOVIE_DB_API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if (response.isSuccessful() && response.body().getResult() != null) {
+                    slides = response.body().getResult();
+                    slideAdapter = new SlidePagerAdapter(MainActivity.this, slides);
+                    sliderpager.setAdapter(slideAdapter);
+                    automateViewPagerSwiping();
+                    indicator.setupWithViewPager(sliderpager, true);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+
+            }
+        });
     }
+    private void automateViewPagerSwiping() {
+        final long DELAY_MS = 2000;//delay in milliseconds before task is to be executed
+        final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+        final Handler handler = new Handler();
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (sliderpager.getCurrentItem() == slideAdapter.getCount() - 1) { //adapter is your custom ViewPager's adapter
+                    sliderpager.setCurrentItem(0);
+                }
+                else {
+                    sliderpager.setCurrentItem(sliderpager.getCurrentItem() + 1, true);
+                }
+            }
+        };
+
+        Timer timer = new Timer(); // This will create a new Thread
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, DELAY_MS, PERIOD_MS);
+    }
+
+
+
 
     private void init() {
         upcomings = findViewById(R.id.upcoming);
@@ -192,8 +233,7 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         indicator = findViewById(R.id.indicator);
         movieHoriTrend = findViewById(R.id.Rx_movies);
         movieHoriPop = findViewById(R.id.Rx_movies_popular);
-        toprated=findViewById(R.id.toprated);
-        Paper.init(this);
+        toprated = findViewById(R.id.toprated);
     }
 
     @Override
@@ -210,27 +250,11 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
         startActivity(intent, options.toBundle());
     }
 
-    class SliderTimer extends TimerTask {
-
-        @Override
-        public void run() {
-            MainActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (sliderpager.getCurrentItem() < listSlides.size() - 1) {
-                        sliderpager.setCurrentItem(sliderpager.getCurrentItem() + 1);
-                    } else
-                        sliderpager.setCurrentItem(0);
-                }
-            });
-        }
-    }
-
-
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
     public boolean isInternetAvailable() {
         try {
             InetAddress address = InetAddress.getByName("www.google.com");
