@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.moviestreamingapp.R;
 import com.example.moviestreamingapp.models.Movie;
 
@@ -37,8 +40,9 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
     @Override
     public void onBindViewHolder(@NonNull PreviewAdapter.PreviewViewHolder holder, int position) {
         Movie model=mData.get(position);
-        Glide.with(context).load("https://image.tmdb.org/t/p/w500"+model.getPoster_path()).transition(DrawableTransitionOptions.withCrossFade())
-                .into(holder.preview_img);
+        Glide.with(context).load("https://image.tmdb.org/t/p/w500"+model.getPoster_path()).apply(RequestOptions.circleCropTransform())
+                .transition(DrawableTransitionOptions.withCrossFade()).into(holder.preview_img);
+
     }
 
     @Override
@@ -47,7 +51,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
     }
 
     public class PreviewViewHolder extends RecyclerView.ViewHolder{
-        CircleImageView preview_img;
+        ImageView preview_img;
 
         public PreviewViewHolder(@NonNull View itemView) {
             super(itemView);

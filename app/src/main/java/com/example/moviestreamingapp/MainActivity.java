@@ -170,12 +170,6 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
     private void movieViewFlipper() {
-
-//        listSlides.add(new Slide(R.drawable.image1, "Joker"));
-//        listSlides.add(new Slide(R.drawable.image5, "Bloodspot"));
-//        listSlides.add(new Slide(R.drawable.slider1, "Avengers:EndGame"));
-//        listSlides.add(new Slide(R.drawable.image3, "Greta"));
-
         Timer timer = new Timer();
         RetrofitService retrofitService = RetrofitClient.getClient().create(RetrofitService.class);
         Call<MovieResponse> call;
@@ -189,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
                     sliderpager.setAdapter(slideAdapter);
                     automateViewPagerSwiping();
                     indicator.setupWithViewPager(sliderpager, true);
-
                 }
             }
 
@@ -222,9 +215,6 @@ public class MainActivity extends AppCompatActivity implements MovieItemClickLis
             }
         }, DELAY_MS, PERIOD_MS);
     }
-
-
-
 
     private void init() {
         upcomings = findViewById(R.id.upcoming);
