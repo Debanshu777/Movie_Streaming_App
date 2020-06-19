@@ -10,35 +10,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviestreamingapp.R;
+import com.example.moviestreamingapp.models.Movie;
 import com.example.moviestreamingapp.models.Slide;
 
 import java.util.List;
 
 public class SlidePagerAdapter extends PagerAdapter {
 
-    private Context mContext;
-    private List<Slide> mList;
+    private Context context;
+    private List<Movie> mList;
 
-    public SlidePagerAdapter(Context mContext, List<Slide> mList) {
-        this.mContext = mContext;
+    public SlidePagerAdapter(Context context, List<Movie> mList) {
+        this.context = context;
         this.mList = mList;
     }
 
     @Override
     public int getCount() {
-        return mList.size() ;
+        return 5 ;
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        LayoutInflater inflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View sliderLayout= inflater.inflate(R.layout.slide_item,null);
-
+        //Movie model=mList.get(position);
         ImageView slideImage =sliderLayout.findViewById(R.id.slide_image);
         TextView sliderText = sliderLayout.findViewById(R.id.slide_title);
-        slideImage.setImageResource(mList.get(position).getImage());
+        Glide.with(context).load("https://image.tmdb.org/t/p/w500"+mList.get(position).getPoster_path()).transition(DrawableTransitionOptions.withCrossFade())
+                .into(slideImage);
+
+        //slideImage.setImageResource(mList.get(position).getImage());
         sliderText.setText(mList.get(position).getTitle());
         container.addView(sliderLayout);
         return  sliderLayout;
