@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,6 +130,7 @@ public class DetailsActivity extends AppCompatActivity implements CastItemClickL
 
     @Override
     public void onMovieClick(Cast cast, ImageView movieImageView) {
-        Toast.makeText(this, "Cast on tap", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Cast on tap", Toast.LENGTH_SHORT).show();
+
     }
 }
