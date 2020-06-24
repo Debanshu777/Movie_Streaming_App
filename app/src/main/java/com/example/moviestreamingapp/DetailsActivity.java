@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviestreamingapp.Client.RetrofitClient;
 import com.example.moviestreamingapp.Client.RetrofitService;
 import com.example.moviestreamingapp.adapters.CastAdapter;
 import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastItemClickListener;
 import com.example.moviestreamingapp.models.CastResponse;
 import com.example.moviestreamingapp.models.Movie;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements CastItemClickListener {
     private ImageView movieThumbnailImg,movieCoverImg;
     private TextView movie_title,movie_description,time_details,adult_details;
     private FloatingActionButton play_btn;
@@ -90,7 +92,7 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onResponse(@NonNull Call<CastResponse> call, @NonNull Response<CastResponse> response) {
                         if (response.isSuccessful() && response.body().getCast() != null){
                             castlist=response.body().getCast();
-                            CastAdapter castAdapter = new CastAdapter(DetailsActivity.this,castlist);
+                            CastAdapter castAdapter = new CastAdapter(DetailsActivity.this,castlist,DetailsActivity.this::onMovieClick);
                             movie_cast.setAdapter(castAdapter);
                             movie_cast.setHasFixedSize(true);
                             movie_cast.setLayoutManager(new LinearLayoutManager(DetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -120,5 +122,10 @@ public class DetailsActivity extends AppCompatActivity {
         ratingBar=findViewById(R.id.rating_bar);
         adult_details=findViewById(R.id.adult_details);
         castlist=new ArrayList<>();
+    }
+
+    @Override
+    public void onMovieClick(Cast cast, ImageView movieImageView) {
+        Toast.makeText(this, "Cast on tap", Toast.LENGTH_SHORT).show();
     }
 }

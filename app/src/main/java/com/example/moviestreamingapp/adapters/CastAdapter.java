@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.moviestreamingapp.R;
 import com.example.moviestreamingapp.models.Cast;
+import com.example.moviestreamingapp.models.CastItemClickListener;
 
 import java.util.List;
 
@@ -26,10 +27,12 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
 
     Context context;
     List<Cast> mData;
+    CastItemClickListener castItemClickListener;
 
-    public CastAdapter(Context context, List<Cast> mData) {
+    public CastAdapter(Context context, List<Cast> mData,CastItemClickListener castitemClickListener) {
         this.context = context;
         this.mData = mData;
+        this.castItemClickListener=castitemClickListener;
     }
 
     @NonNull
@@ -67,6 +70,12 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
             super(itemView);
             cast_img=itemView.findViewById(R.id.image_cast);
             cast_name=itemView.findViewById(R.id.cast_name);
+            cast_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    castItemClickListener.onMovieClick(mData.get(getAdapterPosition()),cast_img);
+                }
+            });
         }
     }
 }
