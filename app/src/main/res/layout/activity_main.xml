@@ -60,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Previews"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 
@@ -104,7 +103,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Upcoming"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 
@@ -159,7 +157,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Trending"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 
@@ -203,7 +200,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Top Rated"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 
@@ -258,7 +254,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:padding="5dp"
-                    android:text="Popular"
                     android:textColor="#fff"
                     android:textSize="25dp" />
 
